@@ -5,6 +5,18 @@ spring:
     url: r2dbc:postgresql://postgres:5432/colabadb
     username: colaba_user
     password: colaba_password
+  datasource:
+    url: jdbc:postgresql://postgres:5432/colabadb
+    username: colaba_user
+    password: colaba_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     url: jdbc:postgresql://postgres:5432/colabadb
