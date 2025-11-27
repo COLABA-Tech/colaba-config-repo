@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: user-service
+  r2dbc:
+    url: r2dbc:postgresql://postgres:5432/colabadb
+    username: colaba_user
+    password: colaba_password
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://postgres:5432/colabadb
+    user: colaba_user
+    password: colaba_password
+
+server:
+  port: 8081
+
+springdoc:
+  packages-to-scan: com.example.colaba.user.controller
