@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: project-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/colabadb
+    username: colaba_user
+    password: colaba_password
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+server:
+  port: 8082
+
+springdoc:
+  packages-to-scan: com.example.colaba.project.controller
