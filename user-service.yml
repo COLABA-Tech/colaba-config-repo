@@ -10,18 +10,12 @@ spring:
     username: colaba_user
     password: colaba_password
     driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     url: jdbc:postgresql://postgres:5432/colabadb
     user: colaba_user
     password: colaba_password
+    enabled: true
 
 server:
   port: 8081
