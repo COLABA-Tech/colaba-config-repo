@@ -1,14 +1,14 @@
 spring:
+  application:
+    name: task-service
+
   datasource:
-    url: jdbc:postgresql://postgres:5432/colabadb
-    username: colaba_user
-    password: colaba_password
-    driver-class-name: org.postgresql.Driver
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://${spring.db.host}:${spring.db.port}/${spring.db.name}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
 
 server:
-  port: 8083
+  port: ${TASK_SERVICE_PORT:8083}
 
 springdoc:
   packages-to-scan: com.example.colaba.task.controller

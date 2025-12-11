@@ -1,24 +1,40 @@
-# Общие настройки для всех сервисов
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
-
 spring:
   datasource:
-    username: colaba_user
-    password: colaba_password  # Позже {cipher}encrypted
+    username: ${SPRING_DATASOURCE_USERNAME:colaba_user}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
+  db:
+    host: ${DB_HOST:postgres}
+    port: ${DB_PORT:5432}
+    name: ${DB_NAME:colabadb}
+
   jpa:
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false
+        format_sql: ${JPA_FORMAT_SQL:false}
+
   liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://discovery-server:8761/eureka}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+        errorDecoder: com.example.colaba.shared.feign.FeignErrorDecoder
 
 springdoc:
   api-docs:
@@ -33,4 +49,5 @@ springdoc:
 
 logging:
   level:
-    com.example.colaba: INFO
+    com.example.colaba: ${COLABA_LOG_LEVEL:INFO}
+    org.hibernate.SQL: ${SQL_LOG_LEVEL:INFO}

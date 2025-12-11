@@ -1,24 +1,19 @@
 spring:
   application:
     name: user-service
+
   r2dbc:
-    url: r2dbc:postgresql://postgres:5432/colabadb
-    username: colaba_user
-    password: colaba_password
-  datasource:
-    url: jdbc:postgresql://postgres:5432/colabadb
-    username: colaba_user
-    password: colaba_password
-    driver-class-name: org.postgresql.Driver
+    url: r2dbc:postgresql://${spring.db.host}:${spring.db.port}/${spring.db.name}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
   liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    url: jdbc:postgresql://postgres:5432/colabadb
-    user: colaba_user
-    password: colaba_password
-    enabled: true
+    url: jdbc:postgresql://${spring.db.host}:${spring.db.port}/${spring.db.name}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
 
 server:
-  port: 8081
+  port: ${USER_SERVICE_PORT:8081}
 
 springdoc:
   packages-to-scan: com.example.colaba.user.controller
