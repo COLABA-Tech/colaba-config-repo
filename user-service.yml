@@ -12,6 +12,11 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
+eureka:
+  instance:
+    hostname: user-service
+    prefer-ip-address: false
+
 server:
   port: ${USER_SERVICE_PORT:8081}
 
