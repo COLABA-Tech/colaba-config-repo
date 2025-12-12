@@ -12,6 +12,42 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
+resilience4j:
+  circuitbreaker:
+    instances:
+      userClient:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      projectClient:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 1000
+        read-timeout: 1000
+        logger-level: basic
+        error-decoder: com.example.colaba.shared.feign.FeignErrorDecoder
+  circuitbreaker:
+    enabled: true
+
 eureka:
   instance:
     hostname: user-service

@@ -15,31 +15,61 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/users/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: user-service-cb
+                    statusCode: 503
 
             - id: user-service-internal
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/users/internal/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: user-service-cb
+                    statusCode: 503
 
             - id: project-service-public
               uri: lb://PROJECT-SERVICE
               predicates:
                 - Path=/api/projects/**, /api/tags/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: project-service-cb
+                    statusCode: 503
 
             - id: project-service-internal
               uri: lb://PROJECT-SERVICE
               predicates:
                 - Path=/api/projects/internal/**, /api/tags/internal/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: project-service-cb
+                    statusCode: 503
 
             - id: task-service-public
               uri: lb://TASK-SERVICE
               predicates:
                 - Path=/api/tasks/**, /api/comments/**, /api/task-tags/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: task-service-cb
+                    statusCode: 503
 
             - id: task-service-internal
               uri: lb://TASK-SERVICE
               predicates:
                 - Path=/api/tasks/internal/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: task-service-cb
+                    statusCode: 503
 
             # === OpenAPI документация ===
             - id: user-openapi-root
@@ -83,6 +113,40 @@ spring:
                 - Path=/v3/api-docs/task-service/**
               filters:
                 - RewritePath=/v3/api-docs/task-service/(?<segment>.*),/v3/api-docs-task/${segment}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service-cb:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      project-service-cb:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      task-service-cb:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
 
 server:
   port: ${API_GATEWAY_PORT:8080}

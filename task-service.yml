@@ -7,6 +7,25 @@ spring:
     username: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
+  cloud:
+    openfeign:
+      client:
+        config:
+          user-service:
+            connectTimeout: 1000
+            readTimeout: 1000
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 1000
+        read-timeout: 1000
+        logger-level: basic
+        error-decoder: com.example.colaba.shared.feign.FeignErrorDecoder
+  circuitbreaker:
+    enabled: true
+
 eureka:
   instance:
     hostname: task-service
