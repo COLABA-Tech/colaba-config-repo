@@ -19,7 +19,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: user-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             - id: user-service-internal
               uri: lb://USER-SERVICE
@@ -29,7 +32,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: user-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             - id: project-service-public
               uri: lb://PROJECT-SERVICE
@@ -39,7 +45,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: project-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             - id: project-service-internal
               uri: lb://PROJECT-SERVICE
@@ -49,7 +58,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: project-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             - id: task-service-public
               uri: lb://TASK-SERVICE
@@ -59,7 +71,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: task-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             - id: task-service-internal
               uri: lb://TASK-SERVICE
@@ -69,7 +84,10 @@ spring:
                 - name: CircuitBreaker
                   args:
                     name: task-service-cb
-                    statusCode: 503
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
 
             # === OpenAPI документация ===
             - id: user-openapi-root
@@ -121,7 +139,6 @@ resilience4j:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        slowCallDurationThreshold: 2s
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
@@ -131,7 +148,6 @@ resilience4j:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        slowCallDurationThreshold: 2s
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
@@ -141,7 +157,6 @@ resilience4j:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        slowCallDurationThreshold: 2s
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5

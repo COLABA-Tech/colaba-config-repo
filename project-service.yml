@@ -18,26 +18,24 @@ spring:
 resilience4j:
   circuitbreaker:
     instances:
-      userClient:
+      user-service:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        slowCallRateThreshold: 100
-        slowCallDurationThreshold: 2s
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
-      taskClient:
+      task-service:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        slowCallDurationThreshold: 2s
         waitDurationInOpenState: 10s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
 
 feign:
   client:
