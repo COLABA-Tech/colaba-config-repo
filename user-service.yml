@@ -21,4 +21,12 @@ server:
   port: ${USER_SERVICE_PORT:8081}
 
 springdoc:
+  api-docs:
+    path: /v3/api-docs-user
+  swagger-ui:
+    config-url: /v3/api-docs-user/swagger-config
+    url: /v3/api-docs-user
+    urls:
+      - url: /v3/api-docs-user
+        name: User Service API
   packages-to-scan: com.example.colaba.user.controller

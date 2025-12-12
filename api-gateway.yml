@@ -41,5 +41,60 @@ spring:
               predicates:
                 - Path=/api/tasks/internal/**
 
+            # === OpenAPI документация ===
+            - id: user-openapi-root
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/v3/api-docs/user-service
+              filters:
+                - RewritePath=/v3/api-docs/user-service,/v3/api-docs-user
+
+            - id: user-openapi-subpaths
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/v3/api-docs/user-service/**
+              filters:
+                - RewritePath=/v3/api-docs/user-service/(?<segment>.*),/v3/api-docs-user/${segment}
+
+            - id: project-openapi-root
+              uri: lb://PROJECT-SERVICE
+              predicates:
+                - Path=/v3/api-docs/project-service
+              filters:
+                - RewritePath=/v3/api-docs/project-service,/v3/api-docs-project
+
+            - id: project-openapi-subpaths
+              uri: lb://PROJECT-SERVICE
+              predicates:
+                - Path=/v3/api-docs/project-service/**
+              filters:
+                - RewritePath=/v3/api-docs/project-service/(?<segment>.*),/v3/api-docs-project/${segment}
+
+            - id: task-openapi-root
+              uri: lb://TASK-SERVICE
+              predicates:
+                - Path=/v3/api-docs/task-service
+              filters:
+                - RewritePath=/v3/api-docs/task-service,/v3/api-docs-task
+
+            - id: task-openapi-subpaths
+              uri: lb://TASK-SERVICE
+              predicates:
+                - Path=/v3/api-docs/task-service/**
+              filters:
+                - RewritePath=/v3/api-docs/task-service/(?<segment>.*),/v3/api-docs-task/${segment}
+
 server:
   port: ${API_GATEWAY_PORT:8080}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: User Service
+        url: /v3/api-docs/user-service
+      - name: Project Service
+        url: /v3/api-docs/project-service
+      - name: Task Service
+        url: /v3/api-docs/task-service
+    urls-primary-name: User Service
+  override-with-gateway-url: true
