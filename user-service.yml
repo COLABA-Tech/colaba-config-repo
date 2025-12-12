@@ -15,7 +15,7 @@ spring:
 resilience4j:
   circuitbreaker:
     instances:
-      userClient:
+      taskClient:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
