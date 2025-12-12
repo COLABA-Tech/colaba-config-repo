@@ -24,17 +24,17 @@ spring:
             - id: project-service-public
               uri: lb://PROJECT-SERVICE
               predicates:
-                - Path=/api/projects/**, /api/tags/**, /api/task-tags/**
+                - Path=/api/projects/**, /api/tags/**
 
             - id: project-service-internal
               uri: lb://PROJECT-SERVICE
               predicates:
-                - Path=/api/projects/internal/**
+                - Path=/api/projects/internal/**, /api/tags/internal/**
 
             - id: task-service-public
               uri: lb://TASK-SERVICE
               predicates:
-                - Path=/api/tasks/**, /api/comments/**
+                - Path=/api/tasks/**, /api/comments/**, /api/task-tags/**
 
             - id: task-service-internal
               uri: lb://TASK-SERVICE
