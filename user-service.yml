@@ -3,12 +3,12 @@ spring:
     name: user-service
 
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:colabadb}
+    url: r2dbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${USER_DB_NAME:user_db}
     username: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
   liquibase:
-    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:colabadb}
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${USER_DB_NAME:user_db}
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
