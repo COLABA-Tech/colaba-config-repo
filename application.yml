@@ -23,6 +23,7 @@ spring:
 
 eureka:
   client:
+    registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: ${EUREKA_URL:http://discovery-server:8761/eureka}
 
@@ -32,8 +33,11 @@ feign:
       default:
         connectTimeout: 5000
         readTimeout: 5000
-        loggerLevel: basic
+        loggerLevel: full
         errorDecoder: com.example.colaba.shared.feign.FeignErrorDecoder
+        retryer: feign.Retryer.Default
+  circuitbreaker:
+    enabled: true
 
 springdoc:
   api-docs:

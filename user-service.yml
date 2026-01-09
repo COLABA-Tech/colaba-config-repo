@@ -19,7 +19,7 @@ resilience4j:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
@@ -28,22 +28,11 @@ resilience4j:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
-
-feign:
-  client:
-    config:
-      default:
-        connect-timeout: 1000
-        read-timeout: 1000
-        logger-level: basic
-        error-decoder: com.example.colaba.shared.feign.FeignErrorDecoder
-  circuitbreaker:
-    enabled: true
 
 eureka:
   instance:

@@ -18,7 +18,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: user-service-cb
+                    name: user-service
                     statusCodes:
                       - 500
                       - 503
@@ -31,7 +31,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: user-service-cb
+                    name: user-service
                     statusCodes:
                       - 500
                       - 503
@@ -44,7 +44,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: project-service-cb
+                    name: project-service
                     statusCodes:
                       - 500
                       - 503
@@ -57,7 +57,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: project-service-cb
+                    name: project-service
                     statusCodes:
                       - 500
                       - 503
@@ -70,7 +70,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: task-service-cb
+                    name: task-service
                     statusCodes:
                       - 500
                       - 503
@@ -83,7 +83,7 @@ spring:
               filters:
                 - name: CircuitBreaker
                   args:
-                    name: task-service-cb
+                    name: task-service
                     statusCodes:
                       - 500
                       - 503
@@ -135,29 +135,29 @@ spring:
 resilience4j:
   circuitbreaker:
     instances:
-      user-service-cb:
+      user-service:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
-      project-service-cb:
+      project-service:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
-      task-service-cb:
+      task-service:
         registerHealthIndicator: true
         automaticTransitionFromOpenToHalfOpenEnabled: true
         failureRateThreshold: 50
-        waitDurationInOpenState: 10s
+        waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
