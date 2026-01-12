@@ -89,6 +89,19 @@ spring:
                       - 503
                       - 504
 
+            - id: auth-service-public
+              uri: lb://AUTH-SERVICE
+              predicates:
+                - Path=/auth/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: auth-service
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
+
             # === OpenAPI документация ===
             - id: user-openapi-root
               uri: lb://USER-SERVICE
