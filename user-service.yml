@@ -11,6 +11,9 @@ spring:
     url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${USER_DB_NAME:user_db}
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+    parameters:
+      adminEmail: ${ADMIN_EMAIL}
+      adminPasswordHash: ${ADMIN_PASSWORD_HASH}
 
 resilience4j:
   circuitbreaker:
