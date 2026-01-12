@@ -17,9 +17,10 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
 
-  mvc:
-    favicon:
-      enabled: false
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+  issuer: colaba
 
 eureka:
   client:

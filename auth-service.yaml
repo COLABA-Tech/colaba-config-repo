@@ -12,11 +12,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: 86400000
-  issuer: colaba
-
 resilience4j:
   circuitbreaker:
     instances:
