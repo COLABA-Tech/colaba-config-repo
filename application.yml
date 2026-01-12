@@ -39,6 +39,10 @@ feign:
   circuitbreaker:
     enabled: true
 
+internal:
+  api-key: ${INTERNAL_API_KEY}
+  enabled: true
+
 springdoc:
   api-docs:
     path: /v3/api-docs
