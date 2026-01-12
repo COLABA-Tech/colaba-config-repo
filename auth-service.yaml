@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: auth-service
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
+
+  main:
+    allow-bean-definition-overriding: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+  issuer: colaba
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+eureka:
+  instance:
+    hostname: auth-service
+    prefer-ip-address: false
+
+server:
+  port: ${AUTH_SERVICE_PORT:8084}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs-auth
+  swagger-ui:
+    config-url: /v3/api-docs-auth/swagger-config
+    url: /v3/api-docs-auth
+    urls:
+      - url: /v3/api-docs-auth
+        name: Auth Service API
+  packages-to-scan: com.example.colaba.auth.controller
