@@ -31,8 +31,7 @@ resilience4j:
 
 eureka:
   instance:
-    instance-id:
-      $${spring.application.name}: $${local.server.port}
+    instance-id: ${spring.application.name}:${random.value}
     hostname: project-service
     prefer-ip-address: false
 
