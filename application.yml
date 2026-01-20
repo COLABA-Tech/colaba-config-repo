@@ -65,6 +65,8 @@ logging:
     org.hibernate.SQL: ${SQL_LOG_LEVEL:INFO}
 
 management:
+  server:
+    port: ${MANAGEMENT_PORT:8081}
   endpoints:
     web:
       exposure:
