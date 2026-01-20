@@ -31,7 +31,7 @@ eureka:
     prefer-ip-address: false
 
 server:
-  port: ${AUTH_SERVICE_PORT:8084}
+  port: 0
 
 springdoc:
   api-docs:

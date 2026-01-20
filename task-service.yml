@@ -35,7 +35,7 @@ eureka:
     prefer-ip-address: false
 
 server:
-  port: ${TASK_SERVICE_PORT:8083}
+  port: 0
 
 springdoc:
   api-docs:
