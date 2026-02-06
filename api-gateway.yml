@@ -102,6 +102,32 @@ spring:
                       - 503
                       - 504
 
+            - id: file-service-public
+              uri: lb://FILE-SERVICE
+              predicates:
+                - Path=/files/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: file-service
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
+
+            - id: file-service-internal
+              uri: lb://FILE-SERVICE
+              predicates:
+                - Path=/api/files/internal/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: file-service
+                    statusCodes:
+                      - 500
+                      - 503
+                      - 504
+
             # === OpenAPI документация ===
             - id: user-openapi-root
               uri: lb://USER-SERVICE
@@ -159,6 +185,20 @@ spring:
               filters:
                 - RewritePath=/v3/api-docs/auth-service/(?<segment>.*),/v3/api-docs-auth/${segment}
 
+            - id: file-openapi-root
+              uri: lb://FILE-SERVICE
+              predicates:
+                - Path=/v3/api-docs/file-service
+              filters:
+                - RewritePath=/v3/api-docs/file-service,/v3/api-docs-file
+
+            - id: file-openapi-subpaths
+              uri: lb://FILE-SERVICE
+              predicates:
+                - Path=/v3/api-docs/file-service/**
+              filters:
+                - RewritePath=/v3/api-docs/file-service/(?<segment>.*),/v3/api-docs-file/${segment}
+
 resilience4j:
   circuitbreaker:
     instances:
@@ -198,6 +238,15 @@ resilience4j:
         minimumNumberOfCalls: 5
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
+      file-service:
+        registerHealthIndicator: true
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
 
 server:
   port: ${API_GATEWAY_PORT:8080}
@@ -213,5 +262,7 @@ springdoc:
         url: /v3/api-docs/task-service
       - name: Auth Service
         url: /v3/api-docs/auth-service
+      - name: File Service
+        url: /v3/api-docs/file-service
     urls-primary-name: User Service
   override-with-gateway-url: true

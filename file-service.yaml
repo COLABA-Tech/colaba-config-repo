@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: file-service
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    hostname: file-service
+    prefer-ip-address: false
+
+server:
+  port: 0
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs-file
+  swagger-ui:
+    config-url: /v3/api-docs-file/swagger-config
+    url: /v3/api-docs-file
+    urls:
+      - url: /v3/api-docs-file
+        name: File Service API
+  packages-to-scan: com.example.colaba.file.controller
