@@ -17,6 +17,12 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true
 
+  rabbitmq:
+    host: rabbitmq1
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_DEFAULT_USER:rabbit_user}
+    password: ${RABBITMQ_DEFAULT_PASS:rabbit_password}
+
 jwt:
   secret: ${JWT_SECRET}
   expiration: 86400000
