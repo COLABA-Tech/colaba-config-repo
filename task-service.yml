@@ -47,4 +47,4 @@ springdoc:
     urls:
       - url: /v3/api-docs-task
         name: Task Service API
-  packages-to-scan: com.example.colaba.task.infrastructure.controller
+  packages-to-scan: com.example.colaba.task.controller
